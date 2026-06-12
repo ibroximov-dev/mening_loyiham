@@ -1,3 +1,5 @@
+# 11_dars_Type_Hints_va_Virtual_Environment
+
 # 1. TYPE HINTS (Tur belgilash)
 # Oddiy qilib: Funksiyaga "bu yerga matn keladi, bu yerdan son chiqadi" deb aytish
 # Tasavvur qiling: siz bank xodimiga "bu qutiga faqat pul soling, poyabzal solmang" deb aytasiz. Type hints ham shunga o‘xshash.
