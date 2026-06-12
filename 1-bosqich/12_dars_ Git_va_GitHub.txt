@@ -108,4 +108,4 @@
 # nothing to commit	O'zgarish qiling yoki git pull
 # remote origin already exists	git remote remove origin
 # failed to push	Avval git pull qiling
-# merge conflict	Ikkala versiyani qo'lda birlashtirish
+# merge conflict	Ikkala versiyani qo'lda birlashtirish!!!
