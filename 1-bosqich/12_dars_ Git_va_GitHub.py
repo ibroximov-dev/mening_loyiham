@@ -1,139 +1,111 @@
-# 📘 Git va GitHub — sodda tushuntirish
-# Git nima?
-# Git — bu versiya boshqarish tizimi. Har bir o'zgarishingizni xotirlaydi va kerak bo'lsa oldingi holatga qaytarish imkonini beradi.
+# 📘 1. Git nima?
+# Git — versiya boshqarish tizimi. Har bir o'zgarishingizni xotirlaydi.
 
-# GitHub nima?
-# GitHub — bu bulutda Git. Kodingizni internetda saqlaysiz, boshqalar bilan bo'lishasiz, jamoada ishlaysiz.
+# GitHub — Git omborlarini internetda saqlaydigan platforma.
 
-# Oddiy misol:
-# Tasavvur qiling: siz insho yozyapsiz.
-
-# Git — "so'nggi 10 ta o'zgarishni eslab qolaman, istagan vaqtda eski versiyaga qaytish mumkin"
-
-# GitHub — "bu inshoni internetga yuklaysiz, do'stlaringiz bilan bo'lishishingiz va birgalikda yozishingiz mumkin"
-
-# 🎯 1-dars: Git o'rnatish va asosiy buyruqlar
-# 1. Git ni o'rnatish:
-# Windows uchun:
-
-# git-scm.com saytiga o'ting
-
-# "Download for Windows" tugmasini bosing
-
-# O'rnatuvchi faylni ishga tushiring (barcha standart sozlamalarni qoldiring)
-
-# O'rnatilganini tekshirish:
-
+# 📘 2. O'rnatish va sozlash
 # bash
+# # O'rnatilganini tekshirish
 # git --version
-# # git version 2.xx.xx chiqsa, tayyor!
-# 2. Git ni sozlash (bir marta qilinadi):
-# bash
-# # Ismingizni yozing
-# git config --global user.name "Ismingiz Familiyangiz"
 
-# # Emailingizni yozing (GitHub bilan bir xil bo'lsin)
+# # Ism va email sozlash (bir marta)
+# git config --global user.name "Ismingiz"
 # git config --global user.email "emailingiz@gmail.com"
-# 3. Yangi loyiha boshlash:
+# 📘 3. Asosiy buyruqlar
+# Buyruq	Vazifasi
+# git init	Yangi Git ombori yaratish
+# git status	Holatni ko'rsatish
+# git add .	Hamma o'zgarishlarni qo'shish
+# git add fayl.py	Bitta faylni qo'shish
+# git commit -m "xabar"	O'zgarishlarni saqlash
+# git log	Commitlar tarixini ko'rish
+# git remote add origin URL	GitHub bilan ulash
+# git push	GitHub ga yuklash
+# git pull	GitHub dan yuklab olish
+# git clone URL	GitHub dan loyihani nusxalash
+# 📘 4. Ish jarayoni (1-kun)
 # bash
-# # Loyiha papkasini yarating
-# mkdir mening_loyiha
-# cd mening_loyiha
+# # 1. Loyiha papkasiga o'tish
+# cd ~/Desktop/mening_loyiham
 
-# # Git ombori (repository) yaratish
+# # 2. Git ombori yaratish
 # git init
-# git init — bu papkani Git nazoratiga olish. .git papkasi yaratiladi.
 
-# 4. Asosiy buyruqlar:
-# bash
-# # 1. Yangi fayl yarating
-# echo "print('Salom Git!')" > main.py
+# # 3. Fayl yaratish
+# echo "print('Salom')" > main.py
 
-# # 2. Faylni Gitga qo'shish (staging area ga)
+# # 4. Faylni qo'shish
 # git add main.py
 
-# # 3. O'zgarishlarni saqlash (commit)
-# git commit -m "Birinchi commit: main.py qo'shildi"
+# # 5. Commit qilish
+# git commit -m "Birinchi commit"
 
-# # 4. Holatni tekshirish
-# git status
-# 5. Asosiy buyruqlar jadvali:
-# Buyruq	Ma'nosi	Qachon ishlatiladi?
-# git init	Git omborini yaratish	Yangi loyiha boshlaganda
-# git add .	Hamma fayllarni qo'shish	O'zgarishlarni saqlashga tayyorlash
-# git add fayl.py	Bitta faylni qo'shish	Faqat ma'lum faylni saqlamoqchi bo'lsangiz
-# git commit -m "xabar"	O'zgarishlarni saqlash	"Bu holatni eslab qol" degan ma'noda
-# git status	Holatni ko'rsatish	Qanday fayllar o'zgargan?
-# git log	Commitlar tarixini ko'rsatish	Kim, qachon, nima o'zgartirgan?
-# ✅ Bugungi amaliy topshiriq:
-# 1. Git ni o'rnating va sozlang:
+# # 6. GitHub da repository yaratish
+# # (Veb-sayt orqali)
+
+# # 7. GitHub ga ulash
+# git remote add origin https://github.com/username/repo.git
+
+# # 8. Yuklash
+# git branch -M main
+# git push -u origin main
+# 📘 5. Ish jarayoni (keyingi kunlar)
 # bash
-# git --version
-# git config --global user.name "Sizning ismingiz"
-# git config --global user.email "emailingiz"
-# 2. Yangi loyiha yarating:
+# # 1. O'zgarish qilish (fayllarni tahrirlash)
+
+# # 2. O'zgarishlarni qo'shish
+# git add .
+
+# # 3. Commit qilish
+# git commit -m "Nima o'zgargani haqida"
+
+# # 4. GitHub ga yuklash
+# git push
+# 📘 6. GitHub dan loyihani olish
 # bash
-# # Papka yarating
-# mkdir ~/Desktop/my_first_git
-# cd ~/Desktop/my_first_git
+# # Birinchi marta (clone)
+# git clone https://github.com/username/repo.git
 
-# # Git omborini yarating
-# git init
-
-# # "salom.py" fayl yarating
-# echo "print('Gitni o'rganyapman!')" > salom.py
-
-# # Faylni qo'shing va commit qiling
-# git add salom.py
-# git commit -m "Birinchi commit: salom.py qo'shildi"
-
-# # Holatni tekshiring
-# git status
-# 3. Yana bitta fayl qo'shing:
+# # Keyingi marta (yangilash)
+# git pull
+# 📘 7. Branch va Merge (tarmoqlar)
 # bash
-# # "ism.py" fayl yarating
-# echo "ism = 'Sizning ismingiz'" > ism.py
+# # Yangi branch yaratish
+# git branch yangi_xususiyat
 
-# # Gitga qo'shing
-# git add ism.py
-# git commit -m "ism.py qo'shildi"
+# # Branch ga o'tish
+# git checkout yangi_xususiyat
 
-# # Commitlar tarixini ko'ring
-# git log
-# 📤 Qanday topshirasiz?
-# Terminaldan quyidagi buyruqlar natijalarini ko'chirib yuboring:
+# # Yoki bir vaqtda yaratish va o'tish
+# git checkout -b yangi_xususiyat
 
+# # O'zgarish qilish va commit
+# git add .
+# git commit -m "Yangi xususiyat qo'shildi"
+
+# # Asosiy branch ga qaytish
+# git checkout main
+
+# # Branch ni birlashtirish
+# git merge yangi_xususiyat
+# 📘 8. Muhim eslatmalar
+# Har kuni commit qiling — bu sizning rezyumeingiz
+
+# Commit xabarini aniq yozing — "main.py yangilandi"
+
+# Push qilishdan oldin pull qiling — git pull then git push
+
+# .git papkasini o'chirmang — u Git ombori
+
+# 📘 9. Tez-tez ishlatiladigan ketma-ketlik
 # bash
-# git status
-# git log
-# Eslatma: Keyingi darsda GitHub ga ulashni va push/pull buyruqlarini o'rganamiz!
-
-
-# bajarilgan topshiriq:
-# PS C:\Users\ibroximov\Desktop\Obsession> cd mening_loyiha
-# PS C:\Users\ibroximov\Desktop\Obsession\mening_loyiha> git init
-# Initialized empty Git repository in C:/Users/ibroximov/Desktop/Obsession/mening_loyiha/.git/
-# PS C:\Users\ibroximov\Desktop\Obsession\mening_loyiha> echo "print('Salom Git!')" > main.py
-# PS C:\Users\ibroximov\Desktop\Obsession\mening_loyiha> git add main.py
-# PS C:\Users\ibroximov\Desktop\Obsession\mening_loyiha> git commit -m "Birinchi commit: main.py qo'shildi"
-# [master (root-commit) a1be39b] Birinchi commit: main.py qo'shildi
-#  1 file changed, 0 insertions(+), 0 deletions(-)
-#  create mode 100644 main.py
-# PS C:\Users\ibroximov\Desktop\Obsession\mening_loyiha> git status
-# On branch master
-# nothing to commit, working tree clean
-# PS C:\Users\ibroximov\Desktop\Obsession\mening_loyiha> git log
-# commit a1be39bbb665ef788016cdaebb4fab460df7dfeb (HEAD -> master)
-# Author: Ibroximov Isroiljon <isroiljonibroximov2@gmail.com>
-# Date:   Fri Jun 12 17:23:50 2026 +0500
-
-#     Birinchi commit: main.py qo'shildi
-# PS C:\Users\ibroximov\Desktop\Obsession\mening_loyiha>
-
-
-
-
-
-
-
-
+# git status                 # Holatni tekshir
+# git add .                  # Hammani qo'sh
+# git commit -m "yangilandi" # Saqla
+# git push                   # Yukla
+# 📘 10. Xatoliklar va yechimlari
+# Xato	Yechim
+# nothing to commit	O'zgarish qiling yoki git pull
+# remote origin already exists	git remote remove origin
+# failed to push	Avval git pull qiling
+# merge conflict	Ikkala versiyani qo'lda birlashtirish
