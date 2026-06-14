@@ -1,0 +1,198 @@
+📘 Bugungi dars: SELECT va WHERE (chuqurroq)
+Avvalgi darsda asoslarni ko‘rdik. Endi qidirishni chuqurroq o‘rganamiz.
+
+1. Ma'lumotlar bazasi va jadval yaratish (eslatma)
+-- Bazani yaratish
+CREATE DATABASE mydb;
+
+-- Jadval yaratish
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    age INTEGER,
+    city VARCHAR(100)
+);
+
+-- Ma'lumot qo'shish
+INSERT INTO users (name, age, city) VALUES
+('Ali', 20, 'Toshkent'),
+('Vali', 25, 'Samarqand'),
+('Hasan', 18, 'Buxoro'),
+('Lola', 22, 'Toshkent'),
+('Anvar', 30, 'Andijon');
+
+
+
+2. SELECT — ma'lumot olish
+-- Hamma ustunlarni olish
+SELECT * FROM users;
+
+-- Faqat name va city ustunlarini olish
+SELECT name, city FROM users;
+
+-- Faqat Toshkentliklarni olish
+SELECT * FROM users WHERE city = 'Toshkent';
+
+-- 20 yoshdan kattalarni olish
+SELECT * FROM users WHERE age > 20;
+
+-- 20 yoshdan kichik yoki teng
+SELECT * FROM users WHERE age <= 20;
+3. WHERE da mantiqiy operatorlar
+
+-- AND: hamma shart bajarilsa
+SELECT * FROM users 
+WHERE city = 'Toshkent' AND age > 20;
+
+-- OR: birorta shart bajarilsa
+SELECT * FROM users 
+WHERE city = 'Toshkent' OR city = 'Samarqand';
+
+-- NOT: aksincha
+SELECT * FROM users 
+WHERE NOT city = 'Toshkent';
+
+-- IN: ro'yxat ichida bo'lsa
+SELECT * FROM users 
+WHERE city IN ('Toshkent', 'Samarqand');
+
+-- BETWEEN: oraliqda bo'lsa
+SELECT * FROM users 
+WHERE age BETWEEN 20 AND 30;
+4. LIKE — matn qidirish
+
+-- % — istalgan belgilar
+-- 'A%' — A bilan boshlangan
+SELECT * FROM users WHERE name LIKE 'A%';  -- Ali, Anvar
+
+-- '%a%' — ichida 'a' harfi bor
+SELECT * FROM users WHERE name LIKE '%a%';
+
+-- '_' — bitta belgi
+SELECT * FROM users WHERE name LIKE 'A_i';  -- Ali (A?i: A+1 harf+i)
+5. ORDER BY — tartiblash
+
+-- Yosh bo'yicha o'sish (kichikdan kattaga)
+SELECT * FROM users ORDER BY age ASC;
+
+-- Yosh bo'yicha kamayish (kattadan kichikga)
+SELECT * FROM users ORDER BY age DESC;
+
+-- Ism bo'yicha alifbo tartibida
+SELECT * FROM users ORDER BY name;
+6. LIMIT — cheklash
+
+-- Faqat birinchi 3 ta
+SELECT * FROM users LIMIT 3;
+
+-- Eng katta yoshdagi 2 ta (20 dan kattalar ichida)
+SELECT * FROM users 
+WHERE age > 20 
+ORDER BY age DESC 
+LIMIT 2;
+✅ Bugungi amaliy topshiriq
+pgAdmin da quyidagi so'rovlarni yozing va natijalarni yuboring:
+
+
+-- 1. Hamma foydalanuvchilarni chiqaring
+SELECT * FROM users;
+
+-- 2. Faqat Toshkentda yashaydiganlarni chiqaring
+SELECT * FROM users WHERE city = 'Toshkent';
+
+-- 3. Yoshi 20 dan katta va Toshkentda yashaydiganlar
+SELECT * FROM users WHERE age > 20 AND city = 'Toshkent';
+
+-- 4. Ismi 'A' bilan boshlanganlar
+SELECT * FROM users WHERE name LIKE 'A%';
+
+-- 5. Yoshi bo'yicha eng kattadan kichikga tartiblang
+SELECT * FROM users ORDER BY age DESC;
+
+-- 6. Eng yosh 2 kishini chiqaring
+SELECT * FROM users ORDER BY age ASC LIMIT 2;
+
+
+
+
+
+
+Topshiriq javobi:
+CREATE DATABASE mydb;
+
+
+CREATE TABLE users(
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(50),
+	age INTEGER,
+	city VARCHAR(50)
+);
+
+
+INSERT INTO users(name,age,city) VALUES
+('Ali', 20, 'Toshkent'),
+('Vali', 25, 'Samarqand'),
+('Hasan', 18, 'Buxoro'),
+('Lola', 22, 'Toshkent'),
+('Anvar', 30, 'Andijon');
+
+
+
+SELECT * FROM users;
+
+
+SELECT name, city FROM users;
+
+
+SELECT * FROM users WHERE city = 'Toshkent';
+
+
+SELECT * FROM users WHERE age > 20;
+
+SELECT * FROM users WHERE age <= 20;
+
+
+-- AND: hamma shart bajarilsa
+SELECT * FROM users 
+WHERE city = 'Toshkent' AND age > 20;
+
+
+SELECT * FROM users 
+WHERE city = 'Toshkent' OR city = 'Samarqand';
+
+
+SELECT * FROM users 
+WHERE NOT city = 'Toshkent';
+
+
+SELECT * FROM users 
+WHERE city IN ('Toshkent', 'Samarqand');
+
+
+SELECT * FROM users 
+WHERE age BETWEEN 20 AND 30;
+
+
+
+
+SELECT * FROM users WHERE name LIKE 'A%';  
+
+
+SELECT * FROM users WHERE name LIKE '%a%';
+
+
+SELECT * FROM users WHERE name LIKE 'A_i'; 
+
+
+
+SELECT * FROM users ORDER BY age ASC;
+SELECT * FROM users ORDER BY age DESC;
+SELECT * FROM users ORDER BY name;
+
+
+SELECT * FROM users LIMIT 3;
+
+SELECT * FROM users
+WHERE age < 20
+ORDER BY age DESC
+LIMIT 2;
