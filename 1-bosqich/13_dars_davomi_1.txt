@@ -1,0 +1,170 @@
+📘 JOIN — jadvallarni birlashtirish
+Hozircha siz bitta jadval bilan ishladingiz. Endi ikkita jadvalni birlashtirib, ulardan ma'lumot olishni o'rganasiz.
+
+1. Ikkita jadval yaratamiz
+sql
+-- Foydalanuvchilar jadvali
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50),
+    age INTEGER
+);
+
+-- Buyurtmalar jadvali
+CREATE TABLE orders (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id),
+    product VARCHAR(100),
+    price INTEGER
+);
+Tushuntirish:
+
+user_id INTEGER REFERENCES users(id) — bu foydalanuvchi bilan bog'lash
+
+Har bir buyurtma qaysi foydalanuvchiga tegishli ekanligini user_id orqali bilamiz
+
+2. Ma'lumot qo'shamiz
+sql
+-- Foydalanuvchilar
+INSERT INTO users (name, age) VALUES
+('Ali', 20),
+('Vali', 25),
+('Hasan', 18);
+
+-- Buyurtmalar
+INSERT INTO orders (user_id, product, price) VALUES
+(1, 'Telefon', 500),
+(1, 'Noutbuk', 800),
+(2, 'Kitob', 30),
+(2, 'Qalam', 10),
+(3, 'Stol', 200);
+3. INNER JOIN — ikkala jadvalda ham bor ma'lumotlar
+sql
+-- Foydalanuvchi va uning buyurtmalarini chiqarish
+SELECT users.name, orders.product, orders.price
+FROM users
+INNER JOIN orders ON users.id = orders.user_id;
+Natija:
+
+text
+ name  | product  | price
+-------+----------+-------
+ Ali   | Telefon  | 500
+ Ali   | Noutbuk  | 800
+ Vali  | Kitob    | 30
+ Vali  | Qalam    | 10
+ Hasan | Stol     | 200
+4. LEFT JOIN — chap jadvaldagi hamma + o'ngdagilardan moslari
+sql
+-- Hamma foydalanuvchilarni (buyurtmasi bo'lmasa ham) chiqarish
+SELECT users.name, orders.product, orders.price
+FROM users
+LEFT JOIN orders ON users.id = orders.user_id;
+Agar biror foydalanuvchining buyurtmasi bo'lmasa, NULL chiqadi.
+
+5. RIGHT JOIN — o'ng jadvaldagi hamma + chapdagilardan moslari
+sql
+SELECT users.name, orders.product, orders.price
+FROM users
+RIGHT JOIN orders ON users.id = orders.user_id;
+6. FULL JOIN — ikkala jadvaldagi hamma ma'lumotlar
+sql
+SELECT users.name, orders.product, orders.price
+FROM users
+FULL JOIN orders ON users.id = orders.user_id;
+7. JOIN larni vizual tushuntirish
+JOIN turi  Nima qiladi
+INNER JOIN  Ikkala jadvalda ham bor ma'lumotlar
+LEFT JOIN  Chap jadvaldagi hamma + o'ngdagilardan moslari
+RIGHT JOIN  O'ng jadvaldagi hamma + chapdagilardan moslari
+FULL JOIN  Ikkala jadvaldagi hamma ma'lumotlar
+8. Bir nechta jadvalni JOIN qilish
+sql
+-- 3 ta jadvalni birlashtirish
+SELECT users.name, orders.product, orders.price
+FROM users
+INNER JOIN orders ON users.id = orders.user_id
+INNER JOIN products ON orders.product_id = products.id;
+✅ Bugungi amaliy topshiriq
+1. Yuqoridagi 2 ta jadvalni yarating va ma'lumot qo'shing
+2. Quyidagi so'rovlarni yozing:
+sql
+-- 1. Hamma foydalanuvchilarni ularning buyurtmalari bilan chiqaring (INNER JOIN)
+
+-- 2. Hamma foydalanuvchilarni (buyurtmasi bo'lmasa ham) chiqaring (LEFT JOIN)
+
+-- 3. Faqat Ali ning buyurtmalarini chiqaring (WHERE qo'shing)
+
+-- 4. Har bir foydalanuvchining nechta buyurtmasi borligini chiqaring
+-- Maslahat: COUNT(*) va GROUP BY ishlatiladi
+⭐️ Qo'shimcha qiyinroq variant
+sql
+-- Har bir foydalanuvchining jami buyurtma summasini chiqaring
+SELECT users.name, SUM(orders.price) AS total_price
+FROM users
+INNER JOIN orders ON users.id = orders.user_id
+GROUP BY users.name;
+
+
+
+
+
+
+
+topshiriq javobi:
+CREATE TABLE users(
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(50),
+	age INTEGER
+);
+
+
+CREATE TABLE orders(
+	id SERIAL PRIMARY KEY,
+	user_id  INTEGER REFERENCES users(id),
+	product VARCHAR(100),
+	price INTEGER 
+);
+
+
+INSERT INTO users(name,age) VALUES 
+('Ali',20),
+('Vali',25),
+('Hasan',18);
+
+
+INSERT INTO orders (user_id, product, price) VALUES
+(1, 'Telefon', 500),
+(1, 'Noutbuk', 800),
+(2, 'Kitob', 30),
+(2, 'Qalam', 10),
+(3, 'Stol', 200);
+
+
+
+SELECT users.name, orders.product, orders.price
+FROM users
+INNER JOIN orders ON users.id = orders.user_id;
+
+
+SELECT users.name, orders.product, orders.price
+FROM users
+LEFT JOIN orders ON users.id = orders.user_id;
+
+
+
+SELECT users.name, orders.product, orders.price
+FROM users
+RIGHT JOIN orders ON users.id = orders.user_id;
+
+
+SELECT users.name, orders.product, orders.price
+FROM users
+FULL JOIN orders ON users.id = orders.user_id;
+
+
+
+SELECT users.name, orders.product
+FROM users
+INNER JOIN orders ON users.id = orders.user_id
+WHERE users.name = 'Ali';

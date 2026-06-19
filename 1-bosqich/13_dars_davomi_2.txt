@@ -1,0 +1,122 @@
+dars: SUM, AVG, MAX, MIN
+Endi group by ni tugatamiz — yana 4 ta funksiyani o'rganasiz:
+
+sql
+-- Har bir foydalanuvchining jami sarflagan puli
+SELECT users.name, SUM(orders.price) AS total_spent
+FROM users
+LEFT JOIN orders ON users.id = orders.user_id
+GROUP BY users.name;
+
+-- O'rtacha buyurtma narxi
+SELECT users.name, AVG(orders.price) AS avg_price
+FROM users
+LEFT JOIN orders ON users.id = orders.user_id
+GROUP BY users.name;
+
+-- Eng qimmat buyurtma
+SELECT users.name, MAX(orders.price) AS max_price
+FROM users
+LEFT JOIN orders ON users.id = orders.user_id
+GROUP BY users.name;
+
+-- Eng arzon buyurtma
+SELECT users.name, MIN(orders.price) AS min_price
+FROM users
+LEFT JOIN orders ON users.id = orders.user_id
+GROUP BY users.name;
+✅ Bugungi amaliy topshiriq:
+Yuqoridagi 4 ta so'rovni o'zingiz yozib, natijalarni shu yerga yuboring.
+
+
+
+
+
+topshiriq javobi:
+CREATE TABLE users(
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(50),
+	age INTEGER
+);
+
+
+CREATE TABLE orders(
+	id SERIAL PRIMARY KEY,
+	user_id  INTEGER REFERENCES users(id),
+	product VARCHAR(100),
+	price INTEGER 
+);
+
+
+INSERT INTO users(name,age) VALUES 
+('Ali',20),
+('Vali',25),
+('Hasan',18);
+
+
+INSERT INTO orders (user_id, product, price) VALUES
+(1, 'Telefon', 500),
+(1, 'Noutbuk', 800),
+(2, 'Kitob', 30),
+(2, 'Qalam', 10),
+(3, 'Stol', 200);
+
+
+
+SELECT users.name, orders.product, orders.price
+FROM users
+INNER JOIN orders ON users.id = orders.user_id;
+
+
+SELECT users.name, orders.product, orders.price
+FROM users
+LEFT JOIN orders ON users.id = orders.user_id;
+
+
+
+SELECT users.name, orders.product, orders.price
+FROM users
+RIGHT JOIN orders ON users.id = orders.user_id;
+
+
+SELECT users.name, orders.product, orders.price
+FROM users
+FULL JOIN orders ON users.id = orders.user_id;
+
+
+
+SELECT users.name, orders.product
+FROM users
+INNER JOIN orders ON users.id = orders.user_id
+WHERE users.name = 'Ali';
+
+
+
+SELECT users.name , COUNT(orders.id) AS order_count
+FROM users 
+LEFT JOIN orders ON	users.id = orders.user_id
+GROUP BY users.name;
+
+
+SELECT users.name, SUM(orders.price) AS total_spent
+FROM users
+LEFT JOIN orders on users.id = orders.user_id
+GROUP BY users.name;
+
+
+SELECT users.name, AVG(orders.price) AS avg_price
+FROM users
+LEFT JOIN orders ON users.id = orders.user_id
+GROUP BY users.name;
+
+
+SELECT users.name, MAX(orders.price) AS max_price
+FROM users
+LEFT JOIN orders ON users.id = orders.user_id
+GROUP BY users.name;
+
+
+SELECT users.name, MIN(orders.price) AS min_price
+FROM users
+LEFT JOIN orders ON users.id = orders.user_id
+GROUP BY users.name;
