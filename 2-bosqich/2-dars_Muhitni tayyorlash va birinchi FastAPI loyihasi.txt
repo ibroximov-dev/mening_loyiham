@@ -1,0 +1,91 @@
+🚀 2-BOSQICH | 2-DARS
+Mavzu: Muhitni tayyorlash va birinchi FastAPI loyihasi
+
+Bugungi maqsad:
+
+Kompyuteringda ishlaydigan birinchi backend serverni ishga tushirish.
+
+1-QADAM. Yangi loyiha yaratamiz
+
+Terminalni och.
+
+mkdir FastAPI_1_dars
+cd FastAPI_1_dars
+2-QADAM. Virtual Environment
+python -m venv venv
+
+Faollashtir:
+
+Windows
+venv\Scripts\activate
+
+Agar hammasi to'g'ri bo'lsa:
+
+(venv)
+
+chiqadi.
+
+3-QADAM. FastAPI o'rnatamiz
+pip install fastapi
+4-QADAM. Uvicorn
+
+Bu serverimizni ishga tushiradi.
+
+pip install uvicorn
+5-QADAM. requirements.txt
+pip freeze > requirements.txt
+6-QADAM. main.py
+
+Yangi fayl yarat.
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/")
+def home():
+    return {
+        "message": "Assalomu alaykum Isroiljon! Backend olamiga xush kelibsiz 🚀"
+    }
+7-QADAM. Serverni ishga tushirish
+uvicorn main:app --reload
+
+Agar hammasi yaxshi bo'lsa:
+
+INFO: Uvicorn running on http://127.0.0.1:8000
+
+chiqadi.
+
+8-QADAM.
+
+Brauzerga kir:
+
+http://127.0.0.1:8000
+
+Natija:
+
+{
+  "message": "Assalomu alaykum Isroiljon! Backend olamiga xush kelibsiz 🚀"
+}
+9-QADAM.
+
+Endi eng qiziq joy 😄
+
+Brauzerda och:
+
+http://127.0.0.1:8000/docs
+
+Bu Swagger UI.
+
+Mana shu yerda barcha API'laringni test qilamiz.
+
+Backend dasturchilar har kuni deyarli shu sahifadan foydalanishadi.
+
+Bugungi yangi tushunchalar
+Narsa	Vazifasi
+FastAPI()	Ilovani yaratadi
+@app.get("/")	GET so'rovini qabul qiladi
+return	JSON javob qaytaradi
+uvicorn	Serverni ishga tushiradi
+/docs	Swagger UI

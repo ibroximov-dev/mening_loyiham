@@ -1,0 +1,200 @@
+📚 2-BOSQICH — 1-DARS
+Mavzu:
+REST API va FastAPI bilan tanishish
+
+Roadmap bo'yicha ham birinchi mavzu shu.
+
+1. API nima?
+
+API (Application Programming Interface) — bu ikki dastur bir-biri bilan gaplashishi uchun vosita.
+
+Misol:
+
+Tasavvur qil.
+
+🍽️ Sen restoranga kirding.
+
+Sen — mijoz.
+Oshxona — server.
+Ofitsiant — API.
+
+Sen ovqatni oshxonaga o'zing kirib olmayapsan.
+
+Ofitsiantga aytasan.
+
+Ofitsiant oshxonaga boradi.
+
+Ovqatni olib keladi.
+
+Xuddi shunday:
+
+Telefon
+      │
+      ▼
+     API
+      │
+      ▼
+Database
+2. Backend nima qiladi?
+
+Backend:
+
+ma'lumotni saqlaydi
+tekshiradi
+foydalanuvchini aniqlaydi
+javob qaytaradi
+
+Misol:
+
+Instagram.
+
+Telefoning:
+
+Login
+
+deydi.
+
+Backend:
+
+Parol to'g'rimi?
+
+tekshiradi.
+
+Keyin:
+
+Xush kelibsiz
+
+yoki
+
+Parol noto'g'ri
+
+deydi.
+
+3. REST nima?
+
+REST — API yozishning qoidalari.
+
+Eng ko'p ishlatiladigan metodlar:
+
+Method	Vazifasi
+GET	Ma'lumot olish
+POST	Yangi ma'lumot yaratish
+PUT	To'liq yangilash
+PATCH	Qisman yangilash
+DELETE	O'chirish
+
+Misol:
+
+GET /students
+
+→ barcha talabalar
+
+GET /students/5
+
+→ 5-ID dagi talaba
+
+POST /students
+
+→ yangi talaba
+
+DELETE /students/5
+
+→ 5-ID dagi talabani o'chirish
+
+4. FastAPI nima?
+
+FastAPI — Python'da REST API yozish uchun zamonaviy framework.
+
+Nega uni tanlaymiz?
+
+✅ Juda tez
+
+✅ Kod kam yoziladi
+
+✅ Type hints ishlatadi
+
+✅ Swagger hujjatlarini avtomatik yaratadi
+
+✅ Backend bozorida talab yuqori
+
+5. Bugun kod yozmaymiz.
+
+Bugun maqsad:
+
+Backend qanday ishlashini miyangda tasavvur qilish.
+
+Agar shuni tushunsang, qolgan darslar ancha osonlashadi.
+
+📝 Uyga vazifa
+O'z so'zlaring bilan yoz:
+API nima?
+REST nima?
+FastAPI nima?
+GET va POST o'rtasidagi farq nima?
+Hayotdan API uchun yana bitta yangi misol top.
+
+Restoran misolini takrorlash mumkin emas.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Server foydalanuvchidan kelgan so'rovni qabul qiladi, uni tekshiradi, 
+kerakli biznes mantiqini (business logic) bajaradi, ma'lumotlar bazasi bilan ishlaydi va
+tayyor javobni API orqali foydalanuvchiga qaytaradi.
+Database esa faqat ma'lumotlarni saqlaydi, u o'zi mustaqil ravishda foydalanuvchiga javob bermaydi
+
+
+Oddiy misol
+
+Tasavvur qil, bankka kelding.
+
+👤 Sen — mijoz
+🪟 Kassir — API
+👨‍💼 Menejer — Server
+🗄️ Seyf — Database
+
+Sen kassirdan:
+
+"Hisobimda qancha pul bor?"
+
+deb so'raysan.
+
+Kassir (API) o'zi seyfni ochmaydi.
+
+U menejerga (Server) aytadi.
+
+Menejer:
+
+seni tekshiradi,
+ruxsating borligini aniqlaydi,
+seyfdan (Database) ma'lumotni oladi,
+javobni kassir orqali senga qaytaradi.
+
+Shuning uchun Database hech qachon foydalanuvchi bilan to'g'ridan-to'g'ri gaplashmaydi.
+
+
+
+
+
+
+
+
+
+
+
+
+
