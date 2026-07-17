@@ -1,0 +1,142 @@
+📚 2-BOSQICH | 4-DARS
+Mavzu: Request Body va Pydantic
+Dars maqsadi
+
+Bugungi darsdan keyin sen:
+
+JSON nima ekanini tushunasan.
+Frontend yuborgan ma'lumotni qabul qilasan.
+Pydantic yordamida ma'lumotlarni tekshirishni o'rganasan.
+1. Muammo
+
+Hozirgacha biz faqat URL orqali ma'lumot oldik.
+
+Misol:
+
+/user?name=Ali&age=18
+
+Lekin foydalanuvchi 10 ta ma'lumot yuborsa nima bo'ladi?
+
+/user?name=Ali&age=18&phone=99890...&email=...&address=...
+
+❌ Juda noqulay.
+
+Shuning uchun Request Body ishlatiladi.
+
+2. JSON nima?
+
+Frontend odatda serverga quyidagicha ma'lumot yuboradi:
+
+{
+    "name": "Ali",
+    "age": 18,
+    "job": "Backend Developer"
+}
+
+Bu JSON deyiladi.
+
+3. Pydantic nima?
+
+Pydantic — yuborilgan ma'lumotlarni tekshiruvchi kutubxona.
+
+Misol:
+
+from pydantic import BaseModel
+
+class Student(BaseModel):
+    name: str
+    age: int
+
+Bu nimani anglatadi?
+
+Server:
+
+"Men faqat name matn bo'lsa va age son bo'lsa qabul qilaman."
+
+deyapti.
+
+4. Birinchi POST API
+
+main.py ga qo'sh:
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Student(BaseModel):
+    name: str
+    age: int
+
+
+@app.post("/student")
+def create_student(student: Student):
+    return {
+        "message": "Talaba muvaffaqiyatli qo'shildi",
+        "student": student
+    }
+5. Swagger orqali sinash
+
+/docs ni och.
+
+POST /student
+
+ni tanla.
+
+Try it out ni bos.
+
+Quyidagi JSON ni yoz:
+
+{
+    "name": "Isroiljon",
+    "age": 17
+}
+
+Execute ni bos.
+
+Natija:
+
+{
+    "message": "Talaba muvaffaqiyatli qo'shildi",
+    "student": {
+        "name": "Isroiljon",
+        "age": 17
+    }
+}
+6. Xato yuborsak nima bo'ladi?
+
+Masalan:
+
+{
+    "name": "Isroiljon",
+    "age": "o'n yetti"
+}
+
+FastAPI darhol xato qaytaradi.
+
+Sababi:
+
+age: int
+
+deb yozganmiz.
+
+Bu Pydantic'ning eng katta afzalliklaridan biri.
+
+🧠 Muhim tushuncha
+
+Oldin:
+
+URL
+↓
+Server
+
+Endi esa:
+
+JSON
+↓
+Pydantic
+↓
+Server
+↓
+Javob

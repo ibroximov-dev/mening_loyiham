@@ -1,0 +1,115 @@
+2-BOSQICH | 3-DARS
+Mavzu: Path Parameters va Query Parameters
+Dars maqsadi
+
+Bugungi darsdan keyin sen quyidagilarni qila olasan:
+
+URL'dan ma'lumot olish.
+Foydalanuvchi yuborgan qiymatni qabul qilish.
+API'ni dinamik qilish.
+1. Path Parameter nima?
+
+Oddiy qilib aytganda:
+
+URL ichidagi o'zgaruvchi qiymat.
+
+Misol:
+
+/student/5
+
+Bu yerda:
+
+5
+
+➡️ Path Parameter.
+
+Kod:
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/student/{student_id}")
+def get_student(student_id: int):
+    return {
+        "student_id": student_id
+    }
+Natija
+
+Agar brauzerga yozsak:
+
+http://127.0.0.1:8000/student/10
+
+Natija:
+
+{
+    "student_id": 10
+}
+
+Yana:
+
+/student/100
+
+Natija:
+
+{
+    "student_id": 100
+}
+
+Ko'rdingmi?
+
+Biz kodni o'zgartirmadik.
+
+Faqat URL o'zgardi.
+
+2. Query Parameter nima?
+
+URL oxirida keladigan parametr.
+
+Misol:
+
+http://127.0.0.1:8000/search?name=Ali
+
+Bu yerda:
+
+name=Ali
+
+➡️ Query Parameter.
+
+Kod:
+
+@app.get("/search")
+def search(name: str):
+    return {
+        "Natija": name
+    }
+
+Natija:
+
+/search?name=Isroiljon
+{
+    "Natija": "Isroiljon"
+}
+3. Bir nechta Query
+@app.get("/user")
+def user(name: str, age: int):
+    return {
+        "name": name,
+        "age": age
+    }
+
+URL:
+
+/user?name=Ali&age=18
+
+Natija:
+
+{
+    "name": "Ali",
+    "age": 18
+}
+4. Path va Query farqi
+Path	Query
+/student/5	/student?id=5
+URL yo'lining bir qismi	URL oxiridagi parametr
+Asosan ID uchun	Filtrlash, qidirish uchun
