@@ -1,0 +1,263 @@
+🚀 2-BOSQICH | 5-DARS
+📚 Mavzu: Response Model va Field()
+Dars maqsadi
+
+Bugungi darsdan keyin sen:
+
+response_model nima ekanini bilasan.
+Field() yordamida maydonlarga qo'shimcha qoidalar qo'yishni o'rganasan.
+API javobini professional ko'rinishga keltirasan.
+1. Muammo
+
+Biz hozir shunday API yozdik:
+
+@app.post("/student")
+def create_student(student: Student):
+    return student
+
+Natija:
+
+{
+    "name": "Ali",
+    "age": 18
+}
+
+Lekin tasavvur qil.
+
+Database'da foydalanuvchining:
+
+password
+token
+secret_key
+
+ham bor.
+
+Agar hammasini qaytarib yuborsak...
+
+❌ Xavfsizlik muammosi yuzaga keladi.
+
+Shuning uchun Response Model ishlatiladi.
+
+2. Response Model
+
+Model yaratamiz.
+
+from pydantic import BaseModel
+
+class StudentResponse(BaseModel):
+    name: str
+    age: int
+
+Endpoint:
+
+@app.post("/student", response_model=StudentResponse)
+def create_student(student: Student):
+    return student
+
+FastAPI faqat:
+
+name
+age
+
+ni qaytaradi.
+
+3. Yana bir misol
+class User(BaseModel):
+    fullname: str
+    email: str
+    password: str
+
+Lekin foydalanuvchiga password qaytarmaymiz.
+
+class UserResponse(BaseModel):
+    fullname: str
+    email: str
+
+Endpoint:
+
+@app.post("/user", response_model=UserResponse)
+def create_user(user: User):
+    return user
+
+Natija:
+
+{
+    "fullname": "Isroiljon",
+    "email": "isroiljon@gmail.com"
+}
+
+Ko'rdingmi?
+
+Password avtomatik yashirildi.
+
+4. Field()
+
+Field() maydonlarga qo'shimcha qoidalar qo'yadi.
+
+from pydantic import BaseModel, Field
+
+class Student(BaseModel):
+    name: str = Field(
+        min_length=3,
+        max_length=30,
+        description="Talabaning ismi"
+    )
+
+    age: int = Field(
+        ge=7,
+        le=100,
+        description="Talabaning yoshi"
+    )
+Natija
+
+Agar:
+
+{
+    "name": "Al",
+    "age": 18
+}
+
+yuborsang,
+
+FastAPI xato beradi.
+
+Sababi:
+
+min_length=3
+5. Field misollari
+Parametr	Vazifasi
+min_length	Minimal uzunlik
+max_length	Maksimal uzunlik
+ge	≥ (katta yoki teng)
+gt	>
+le	≤
+lt	<
+description	Swagger'dagi izoh
+example	Misol qiymat
+6. To'liq misol
+from fastapi import FastAPI
+from pydantic import BaseModel, Field
+
+app = FastAPI()
+
+class Book(BaseModel):
+    title: str = Field(
+        min_length=3,
+        max_length=50,
+        description="Kitob nomi"
+    )
+
+    author: str
+
+    price: float = Field(
+        gt=0,
+        description="Kitob narxi"
+    )
+
+@app.post("/book", response_model=Book)
+def create_book(book: Book):
+    return book
+📝 Uyga vazifa
+1-topshiriq
+
+Product modeli yarat.
+
+Maydonlari:
+
+name
+price
+quantity
+
+Qoidalar:
+
+name → 3–30 ta belgi.
+price → 0 dan katta.
+quantity → 1 dan katta yoki teng.
+
+Endpoint:
+
+POST /product
+2-topshiriq
+
+RegisterUser modeli yarat.
+
+Maydonlari:
+
+fullname
+email
+password
+
+Keyin:
+
+RegisterResponse
+
+yarat.
+
+Unda:
+
+fullname
+email
+
+bo'lsin.
+
+Password qaytmasin.
+
+Endpoint:
+
+POST /register
+
+response_model=RegisterResponse
+
+ishlat.
+
+3-topshiriq ⭐
+
+Swagger orqali noto'g'ri ma'lumot yubor.
+
+Masalan:
+
+{
+    "name": "AB",
+    "price": -100,
+    "quantity": 0
+}
+
+FastAPI qanday xato qaytarayotganini kuzat.
+
+🎯 Bonus savol
+
+Nima uchun:
+
+response_model=RegisterResponse
+
+ishlatamiz?
+
+Nega shunchaki:
+
+return user
+
+qilib qo'ya qolmaymiz?
+
+O'z so'zlaring bilan tushuntir.
+
+📌 Kichik maslahat
+
+Endi har bir darsdan boshlab quyidagi odatni shakllantir:
+
+Klass nomlari: Student, Book, Product (PascalCase)
+Funksiya nomlari: create_student, create_book (snake_case)
+O'zgaruvchilar: student, book, user (snake_case)
+
+Bu Python'ning PEP 8 kod yozish standartiga mos keladi.
+
+
+
+
+
+
+
+
+response_model API javobini nazorat qiladi.
+U foydalanuvchiga faqat ruxsat etilgan maydonlarni qaytaradi. 
+Shu orqali maxfiy ma'lumotlar (masalan, password, token, secret_key) 
+oshkor bo'lishining oldi olinadi va API javobi doim bir xil formatda bo'ladi.
